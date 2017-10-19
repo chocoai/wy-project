@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aibei.mapper.UserMapper" >
+  <insert id="addUser" parameterType="com.aibei.bean.User" >
+    insert into wy_aibei_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if> 
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="statue != null" >
+        statue,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if> 
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+       <if test="statue != null" >
+        #{statue,jdbcType=INTEGER},
+      </if>
+       <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getUserById" resultType="com.aibei.bean.User" parameterType="com.aibei.bean.User">
+    select id,username,password,statue,createtime from wy_aibei_user
+     <trim prefix="WHERE" suffixOverrides="AND" >
+       <if test="id != null">
+         id = #{id,jdbcType=INTEGER} and
+       </if>
+       <if test="username != null">
+         username = #{username,jdbcType=VARCHAR} and
+       </if> 
+       <if test="password != null">
+         password = #{password,jdbcType=VARCHAR} and
+       </if>
+    </trim>
+  </select>
+  
+  <update id="updateUser" parameterType="com.aibei.bean.User">
+    update wy_aibei_user 
+    <set>
+       <if test="username != null" >
+         username = #{username,jdbcType=VARCHAR},
+       </if>
+       <if test="password != null" >
+         password =#{password,jdbcType=VARCHAR},
+       </if>
+       <if test="statue != null" >
+         statue =#{statue,jdbcType=INTEGER},
+       </if>
+       <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <trim prefix="WHERE" suffixOverrides="AND" >
+       <if test="id != null">
+         id = #{id,jdbcType=INTEGER} and
+       </if>
+     </trim>
+  </update>
+  
+  <delete id="deleteUser" parameterType="com.aibei.bean.User">
+    delete from wy_aibei_user 
+    <trim prefix="WHERE" suffixOverrides="AND" >
+       <if test="id != null">
+         id = #{id,jdbcType=INTEGER} and
+       </if>
+     </trim>
+  </delete>
+  
+</mapper>

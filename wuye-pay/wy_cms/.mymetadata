@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="wy_cms"
+  id="myeclipse.1490146938679"
+  context-root="/wy_cms"
+  j2ee-spec="1.7"
+  archive="wy_cms.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

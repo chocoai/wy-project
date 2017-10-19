@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                零星
+            </title>
+        </meta>
+        <style type="text/css">
+        	.division{
+        		border-bottom: 1px soild #000;
+        		height: 20px;
+        		width: 800px;
+        	}
+        	.width1{
+        		width: 60%;
+        	}
+        	.width2{
+        		width: 80%;
+        	}
+        	.width3{
+        		width: 100%;
+        	}
+        </style>
+    </head>
+    <body>
+        <div style="width:800px">
+            <div style="padding:10px 60px 20px 60px;">
+                <table cellpadding="10" style="border-collapse:collapse; width: 600px;">
+                	<tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <h2>零星收款二维码生成</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            费用类型
+                        </td>
+                        <td>
+                            <input name="x0" type="text" class="width1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            物业ID
+                        </td>
+                        <td>
+                            <input name="x1" type="text" class="width1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            来源
+                        </td>
+                        <td>
+                            <input name="x4" type="text" class="width1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            签名
+                        </td>
+                        <td>
+                            <input name="sign" type="text" class="width2"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            入口
+                        </td>
+                        <td>
+                            <select name="from">
+                                <option value="0">
+                                    公众号
+                                </option>
+                                <option value="1">
+                                    触摸屏
+                                </option>
+                                <option value="2">
+                                    通知单
+                                </option>
+                                <option value="3">
+                                    短信
+                                </option>
+                                <option value="4">
+                                    客显屏
+                                </option>
+                                <option value="5">
+                                    铭牌
+                                </option>
+                                <option value="6">
+                                    App
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BZID
+                        </td>
+                        <td>
+                            <input name="BZID" type="text" class="width1"/>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #000; border-top: 1px solid #000;">
+                        <td>
+                            二维码链接
+                        </td>
+                        <td>
+                            <input name="BZID" type="text" class="width3"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button>生成</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

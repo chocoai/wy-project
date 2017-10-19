@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>好邻邦移动支付后台管理系统</title>
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="themes/default/easyui.css" />
+<!-- <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script> -->
+<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+  
+  document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+         if(e && e.keyCode==13){ // enter 键
+             checkLogin();
+        }
+    }; 
+
+  function checkLogin(){
+    var password =  $("#password").val();
+    var username =  $("#username").val();
+    var data = {"username":username,"password":password};
+    $.ajax({
+	    	 url : "/wy_cms/user/checkLogin.htm",//本机测试地址
+		     type : "post",
+		     data : data,
+		     success : function(data){
+		       if(data == "noUser"){
+		         $("#userTxt").html("<font color='red'>不存在此用户！</font>");
+		         $("#userTxt").attr("style","display:inline");
+		       }else if(data == "pwdError"){
+		         $("#pwdTxt").html("<font color='red'>密码错误！</font>");
+		         $("#pwdTxt").attr("style","display:inline");
+		       }else if(data == "success"){
+		         window.location.href = "/wy_cms/index.html";
+		       }
+		     },
+		     error : function(){
+		        alert("登录验证失败！");
+		     }
+	});
+  }
+  
+  function checkUser(){
+    var username =  $("#username").val();
+    if(username == ""){
+      $("#userTxt").html("<font color='red'>请输入用户名！</font>");
+      return;
+    }else{
+      $("#userTxt").attr("style","display:none");
+       $.ajax({
+	    	 url : "/wy_cms/user/checkLogin.htm",//本机测试地址
+		     type : "post",
+		     data : "username="+username,
+		     success : function(data){
+		       if(data == "noUser"){
+		         $("#userTxt").html("<font color='red'>不存在此用户！</font>");
+		         $("#userTxt").attr("style","display:inline");
+		         return;
+		       }else{
+		         $("#userTxt").html("<font color='red'>用户验证成功！</font>");
+		         $("#userTxt").attr("style","display:inline");
+		       }
+		     },
+		     error : function(){
+		        alert("登录验证失败！");
+		     }
+	   });
+    }
+  }
+  
+  function checkPwd(){
+    var password =  $("#password").val();
+    if(password == ""){
+      $("#pwdTxt").html("<font color='red'>请输入密码！</font>");
+      return;
+    }else{
+      $("#pwdTxt").attr("style","display:none");
+    }
+  }
+  
+  function cancel(){
+    $("#username").val("");
+    $("#password").val("");
+  }
+
+</script>
+</head>
+<body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+	<noscript>
+		<div
+			style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+			<img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+		</div>
+	</noscript>
+	
+	<div region="south" split="true"
+		style="height: 30px; background: #D2E0F2; ">
+		<div class="footer">版权所有，翻版必究</div>
+	</div>
+	<div id="mainPanle" region="center"
+		style="background: #eee; overflow-y:hidden">
+		<div id="tabs" class="easyui-tabs" fit="true" border="false">
+			<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+				<h1 style="font-size:24px;">欢迎使用好邻邦移动支付后台管理系统</h1>
+			</div>
+		</div>
+	</div>
+
+	<!--修改密码窗口-->
+	<div id="w" class="easyui-window" title="登录系统" collapsible="false"
+		minimizable="false" maximizable="false"
+		style="width: 560px; height: 200px; padding: 5px;
+        background: #fafafa;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+				<table cellpadding=3 style="width: 500px;height: 80px;">
+					<tr>
+						<td width="100px">用户名：</td>
+						<td width="300px"><input id="username" style="width: 280px;height:20px;" type="text" class="txt01" onblur="checkUser();"/></td>
+						<td width="100px"><span id="userTxt"></span></td>
+					</tr>
+					<tr>
+						<td width="100px">密码：</td>
+						<td width="300px"><input id="password" style="width: 280px;height:20px;"  type="password" class="txt01" onblur="checkPwd();"/></td>
+						<td width="100px"><span id="pwdTxt"></span></td>
+					</tr>
+					<tr>
+						<td colspan="3"><div region="south" border="false"
+								style="text-align: center; height: 30px; line-height: 30px;">
+								<a id="btnLogin" class="easyui-linkbutton" icon="icon-ok"
+									href="javascript:void(0)" onclick="checkLogin();"> 提交</a> <a id="btnCancel"
+									class="easyui-linkbutton" icon="icon-cancel"
+									href="javascript:void(0)" onclick="cancel();">重置</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+*{margin: 0px;padding: :0px}
+.main{
+	width: 500px;
+	height: 300px;
+}
+.myslide{
+	float: left;
+	height: 300px;
+	width: 500px;
+	position: absolute;
+	overflow: hidden;
+}
+.myslidetwo{
+	position: absolute;
+	width: 2000px;
+}
+.myslidetwo img {
+	float: left;
+	width: 500px;
+	height: 300px;
+}
+.daohang {
+	display: none;
+	position: absolute;
+	top: 300px;
+	width: 200px;
+	background: red;
+}
+ol li {
+	list-style: none;
+	float: left;
+	border: #fc0;
+	font-size: 20px;
+	background: #FFF;
+	cursor: pointer;
+}
+ol li.current {
+	background: #0F0;
+}

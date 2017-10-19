@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pay.mapper.DataBaseServiceMapper">
+
+	<insert id="saveCustomer" parameterType="com.pay.bean.Customer">
+		insert into wy_aibei_customer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="KHID != null">
+				KHID,
+			</if>
+			<if test="WYID != null">
+				WYID,
+			</if>
+			<if test="WYMC != null">
+				WYMC,
+			</if>
+			<if test="WYGS != null">
+				WYGS,
+			</if>
+			<if test="customer != null">
+				customer,
+			</if>
+			<if test="certNo != null">
+				certNo,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="KHID != null">
+				#{KHID,jdbcType=VARCHAR},
+			</if>
+			<if test="WYID != null">
+				#{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="WYMC != null">
+				#{WYMC,jdbcType=VARCHAR},
+			</if>
+			<if test="WYGS != null">
+				#{WYGS,jdbcType=VARCHAR},
+			</if>
+			<if test="customer != null">
+				#{customer,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				#{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getCustomer" resultType="com.pay.bean.Customer"
+		parameterType="com.pay.bean.Customer">
+		select
+		WYID,KHID,WYMC,WYGS,customer,certNo,phone,updatetime,createtime,source
+		from
+		wy_aibei_customer
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="KHID != null">
+				KHID = #{KHID,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+
+
+	<update id="updateCustomer" parameterType="com.pay.bean.Customer">
+		update wy_aibei_customer
+		<set>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="KHID != null">
+				KHID = #{KHID,jdbcType=VARCHAR},
+			</if>
+			<if test="WYMC != null">
+				WYMC =#{WYMC,jdbcType=VARCHAR},
+			</if>
+			<if test="WYGS != null">
+				WYGS = #{WYGS,jdbcType=VARCHAR},
+			</if>
+			<if test="customer != null">
+				customer = #{customer,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				certNo = #{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where KHID = #{KHID,jdbcType=VARCHAR}
+	</update>
+
+	<insert id="saveProperty" parameterType="com.pay.bean.Property">
+		insert into wy_aibei_property
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="WYID != null">
+				WYID,
+			</if>
+			<if test="WYBH != null">
+				WYBH,
+			</if>
+			<if test="WYMC != null">
+				WYMC,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="admin != null">
+				admin,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="WYID != null">
+				#{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="WYBH != null">
+				#{WYBH,jdbcType=VARCHAR},
+			</if>
+			<if test="WYMC != null">
+				#{WYMC,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="admin != null">
+				#{admin,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+	<select id="getProperty" resultType="com.pay.bean.Property"
+		parameterType="com.pay.bean.Property">
+		select
+		WYID,WYBH,WYMC,address,admin,phone,description,updatetime,createtime,source
+		from
+		wy_aibei_property
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+
+
+
+
+	<update id="updateProperty" parameterType="com.pay.bean.Property">
+		update wy_aibei_property
+		<set>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="WYBH != null">
+				WYBH = #{WYBH,jdbcType=VARCHAR},
+			</if>
+			<if test="WYMC != null">
+				WYMC =#{WYMC,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="admin != null">
+				admin = #{admin,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where WYID = #{WYID,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getAccount" resultType="com.pay.bean.Account"
+		parameterType="com.pay.bean.Account">
+		select
+		appid,appuserid,appv_key,wyid,source,platp_key,platsystem,appSecret,wxid,ltid,property
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			status = 1 and
+			<if test="WYID != null">
+				wyid = #{WYID,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		limit 0,1
+	</select>
+	
+	<select id="getAd" resultType="com.pay.bean.Ad" parameterType="com.pay.bean.Ad">
+		select id,descr,imgSrc,href,updatetime,createtime,status,WYID,source
+		from
+		wy_aibei_ad
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=VARCHAR} and
+			</if>
+			<if test="descr != null">
+				descr = #{descr,jdbcType=VARCHAR} and
+			</if>
+			<if test="imgSrc != null">
+				imgSrc = #{imgSrc,jdbcType=VARCHAR} and
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR} and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR}
+			</if>
+			<!-- <if test="WYID != null"> WYID = #{WYID,jdbcType=VARCHAR} AND </if> 
+				<if test="source != null"> source = #{source,jdbcType=VARCHAR} AND </if> -->
+		</trim>
+		AND (WYID = #{WYID,jdbcType=VARCHAR} OR WYID= "") AND (source =
+		#{source,jdbcType=VARCHAR} OR source="")
+	</select>
+
+
+
+
+	<insert id="saveOrder" parameterType="com.pay.bean.Order">
+		insert into wy_aibei_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="appid != null">
+				appid,
+			</if>
+			<if test="waresid != null">
+				waresid,
+			</if>
+			<if test="appuserid != null">
+				appuserid,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+			<if test="cpprivate != null">
+				cpprivate,
+			</if>
+			<if test="orderstatus != null">
+				orderstatus,
+			</if>
+			<if test="transid != null">
+				transid,
+			</if>
+			<if test="transtime != null">
+				transtime,
+			</if>
+			<if test="HTID != null">
+				HTID,
+			</if>
+			<if test="JFYF != null">
+				JFYF,
+			</if>
+			<if test="BZIDList != null">
+				BZIDList,
+			</if>
+			<if test="feiList != null">
+				feiList,
+			</if>
+			<if test="SKID != null">
+				SKID,
+			</if>
+			<if test="paystatus != null">
+				paystatus,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="cporderid != null">
+				cporderid,
+			</if>
+			<if test="paytype != null">
+				paytype,
+			</if>
+			<if test="feetype != null">
+				feetype,
+			</if>
+			<if test="currency != null">
+				currency,
+			</if>
+			<if test="transtype != null">
+				transtype,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="WYID != null">
+				WYID,
+			</if>
+			<if test="property != null">
+				property,
+			</if>
+			<if test="building != null">
+				building,
+			</if>
+			<if test="room != null">
+				room,
+			</if>
+			<if test="customername != null">
+				customername,
+			</if>
+			<if test="from != null">
+				`from`,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="waresid != null">
+				#{waresid,jdbcType=VARCHAR},
+			</if>
+			<if test="appuserid != null">
+				#{appuserid,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				#{result,jdbcType=VARCHAR},
+			</if>
+			<if test="cpprivate != null">
+				#{cpprivate,jdbcType=VARCHAR},
+			</if>
+			<if test="orderstatus != null">
+				#{orderstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="transid != null">
+				#{transid,jdbcType=VARCHAR},
+			</if>
+			<if test="transtime != null">
+				#{transtime,jdbcType=VARCHAR},
+			</if>
+			<if test="HTID != null">
+				#{HTID,jdbcType=VARCHAR},
+			</if>
+			<if test="JFYF != null">
+				#{JFYF,jdbcType=VARCHAR},
+			</if>
+			<if test="BZIDList != null">
+				#{BZIDList,jdbcType=VARCHAR},
+			</if>
+			<if test="feiList != null">
+				#{feiList,jdbcType=VARCHAR},
+			</if>
+			<if test="SKID != null">
+				#{SKID,jdbcType=VARCHAR},
+			</if>
+			<if test="paystatus != null">
+				#{paystatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="cporderid != null">
+				#{cporderid,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				#{paytype,jdbcType=VARCHAR},
+			</if>
+			<if test="feetype != null">
+				#{feetype,jdbcType=VARCHAR},
+			</if>
+			<if test="currency != null">
+				#{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="transtype != null">
+				#{transtype,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="WYID != null">
+				#{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="property != null">
+				#{property,jdbcType=VARCHAR},
+			</if>
+			<if test="building != null">
+				#{building,jdbcType=VARCHAR},
+			</if>
+			<if test="room != null">
+				#{room,jdbcType=VARCHAR},
+			</if>
+			<if test="customername != null">
+				#{customername,jdbcType=VARCHAR},
+			</if>
+			<if test="from != null">
+				#{from,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+
+	<select id="getOrder" resultType="com.pay.bean.Order"
+		parameterType="com.pay.bean.Order">
+		select
+		id,property,building,room,appid,waresid,appuserid,price,result,cpprivate,orderstatus,transid,transtime,HTID,JFYF,BZIDList,feiList,SKID,paystatus,createtime,updatetime,cporderid,paytype,feetype,currency,transtype,source,WYID,customername,`from`
+		from
+		wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="transid != null">
+				transid = #{transid,jdbcType=VARCHAR} and
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR} and
+			</if>
+			<if test="cporderid != null">
+				cporderid = #{cporderid,jdbcType=VARCHAR} AND
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR} AND
+			</if>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} AND
+			</if>
+			<if test="HTID != null">
+				HTID = #{HTID,jdbcType=VARCHAR} AND
+			</if>
+		</trim>
+	</select>
+
+	<update id="updateOrder" parameterType="com.pay.bean.Order">
+		update wy_aibei_order
+		<set>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="transid != null">
+				transid =#{transid,jdbcType=VARCHAR},
+			</if>
+			<if test="transtime != null">
+				transtime = #{transtime,jdbcType=VARCHAR},
+			</if>
+			<if test="SKID != null and SKID != ''">
+				SKID = #{SKID,jdbcType=VARCHAR},
+			</if>
+			<if test="paystatus != null">
+				paystatus = #{paystatus,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="feetype != null">
+				feetype = #{feetype,jdbcType=VARCHAR},
+			</if>
+			<if test="transtype != null">
+				transtype = #{transtype,jdbcType=VARCHAR},
+			</if>
+			<if test="currency != null">
+				currency = #{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="property != null">
+				property = #{property,jdbcType=VARCHAR},
+			</if>
+			<if test="building != null">
+				building = #{building,jdbcType=VARCHAR},
+			</if>
+			<if test="room != null">
+				room = #{room,jdbcType=VARCHAR},
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR},
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN},
+			</if>
+			<if test="customername != null">
+				customername = #{customername,jdbcType=VARCHAR},
+			</if>
+			<if test="from != null">
+				`from` = #{from,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where cporderid = #{cporderid,jdbcType=VARCHAR}
+	</update>
+
+
+	<select id="getUrlmap" resultType="com.pay.bean.Urlmap"
+		parameterType="com.pay.bean.Urlmap">
+		select urlkey,urlname,urlstring,secretkey,soapactionstring,status
+		from
+		wy_aibei_urlkey
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="urlkey != null">
+				urlkey = #{urlkey,jdbcType=VARCHAR} AND
+			</if>
+			<if test="urlstring != null">
+				urlstring = #{urlstring,jdbcType=VARCHAR} AND
+			</if>
+			<if test="soapactionstring != null">
+				soapactionstring = #{soapactionstring,jdbcType=VARCHAR}
+				AND
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=VARCHAR}
+				AND
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} AND
+			</if>
+		</trim>
+	</select>
+
+	<select id="getWares" resultType="com.pay.bean.Wares">
+		select id,waresid,waresname,requesturl,notifyurl from wy_aibei_wares
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=VARCHAR} AND
+			</if>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR} AND
+			</if>
+			<if test="waresname != null">
+				waresname = #{waresname,jdbcType=VARCHAR}
+				AND
+			</if>
+			<if test="requesturl != null">
+				requesturl = #{requesturl,jdbcType=VARCHAR}
+				AND
+			</if>
+			<if test="notifyurl != null">
+				notifyurl = #{notifyurl,jdbcType=VARCHAR} AND
+			</if>
+		</trim>
+
+	</select>
+
+
+	<select id="getAccountList" resultType="com.pay.bean.Account"
+		parameterType="com.pay.bean.Account">
+		select
+		appid,appuserid,appv_key,wyid,source,platp_key,platsystem,status,offline,appSecret,wxid,ltid,sumflag
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			status = 1 and
+			<if test="WYID != null">
+				wyid = #{WYID,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR}
+			</if>
+		</trim>		
+	</select>
+	
+	
+	<select id="getHLBPayAccount" resultType="com.pay.bean.Account"
+		parameterType="com.pay.bean.Account">
+		select
+		appid,appuserid,appv_key,wyid,source,platp_key,platsystem,appSecret,wxid,ltid
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			status = 1 and platsystem=#{platsystem,jdbcType=VARCHAR}
+		</trim>
+		limit 0,1
+	</select>
+	
+	
+
+</mapper>

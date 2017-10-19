@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="wy-server"
+  id="myeclipse.1490146938006"
+  context-root="/wy-server"
+  j2ee-spec="1.7"
+  archive="wy-server.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

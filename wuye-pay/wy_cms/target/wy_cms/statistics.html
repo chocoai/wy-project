@@ -1,0 +1,72 @@
+<html>
+  <head>
+  <meta charset="utf-8">
+  <style type="text/css">
+  	.lidefault{background:#CCCCCC;float:left; line-height:25px; text-align:center;  margin:10px 0 0 10px; list-style:none;}
+  	.liselect{background:Green;float:left; line-height:25px; text-align:center;margin:10px 0 0 10px; list-style:none;}
+  	.list_m li a{display:block; width:150px;TEXT-DECORATION:none;color:white}
+  	.list_m li a:hover{background:#5050c0;}
+  
+  </style>
+    <title>广告查询</title>
+    
+    <link rel="stylesheet" href="js/jquery/jquery-easyui-1.3/themes/gray/easyui.css" type="text/css"></link>
+	<link rel="stylesheet" href="js/jquery/jquery-easyui-1.3/themes/icon.css" type="text/css"></link>
+	
+	<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-easyui-1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-easyui-1.3/easyUI_extention.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-easyui-1.3/locale/easyui-lang-zh_CN.js"></script>
+	
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/date.js"></script>
+	<script type="text/javascript" src="js/statistics.js"></script>
+	<script type="text/javascript">
+		var currentSelectRow = null;
+	</script>
+	
+  </head>  
+  <body class="easyui-layout">
+  
+	<div region="north" title="检索条件" split="true" style="height:100px;">
+    	<form id="queryForm">
+	    	<div class="control-group">
+				<table>
+	    			<tr>
+		    			<td align="right" width="60px"><span style="font-size:12;">开始时间:</span></td>
+		    			<td><input type="text" id="begintime" style="width:125px"/></td>
+		    			<td align="right" width="60px"><span style="font-size:12;">结束时间:</span></td>
+		    			<td><input type="text" id="endtime" style="width:125px"/></td>
+		    			<!-- <td align="right" width="60px"><span style="font-size:12;">平台:</span></td>
+		    			<td><input type="text" id="platsystem" style="width:100px"/></td> -->
+		    			<td><input name="platsystem" type="checkbox" value="0"/></td>
+		    			<td align="left" width="40px"><span style="font-size:12;">爱贝:</span></td>
+		    			<td><input name="platsystem" type="checkbox" value="1"/></td>
+		    			<td align="left" width="70px"><span style="font-size:12;">好邻邦微信:</span></td>
+		    			
+	    			</tr>
+	    			<tr>
+	    				<td align="center" colspan="4">
+		    				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    			<a href="javascript:void(0);" id="daybtnSearch"  class="easyui-linkbutton" plain="true" iconCls="icon-search">按日查询</a>
+			    			<a href="javascript:void(0);" id="monthbtnSearch"  class="easyui-linkbutton" plain="true" iconCls="icon-search">按月查询</a>
+			    			<a href="javascript:void(0);" id="btnReset" class="easyui-linkbutton" plain="true" iconCls="icon-cancel">重置</a>
+		    			</td>
+	    			</tr>
+	    		</table>	
+			</div>
+		</form>
+    </div> 
+    
+	<div region="center" title="统计列表" >
+		<div id="list"></div>
+	</div>
+	
+ <div id="win" style="width: 860px; height: 600px;overflow: hidden;" class="easyui-window" closed="true" modal="true" maximized='false'>
+   <div class="Content AddZone">
+		<iframe name="iframe" id="iframe" scrolling="yes" frameborder="0"  style="width:100%;height:100%;"></iframe>
+   </div> 
+ </div>
+	
+</body>
+</html>

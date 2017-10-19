@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <script src="js/echarts.min.js"></script>
+            <script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+        </meta>
+    </head>
+    <body >
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 100%;"></div>
+    <script type="text/javascript">
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  decodeURIComponent(r[2]); return null;
+        }
+    </script>
+    <script type="text/javascript">
+        var dates;
+        var counts;
+        var numbers;
+        var type;
+        var height = window.screen.height;
+        $("#main").css("height", height*0.8);
+        jQuery.ajax({
+            url : "statistics/histogram.htm",
+            type : "post",
+            data : {"type":GetQueryString("type")},
+            success : function(data){
+                //console.log(data);
+                if(data.result == "success"){
+                    dates = data.dates;
+                    counts = data.counts;
+                    numbers = data.numbers;
+                    type = data.type;
+                    draw(dates, counts, numbers, type);
+                } 
+            },
+            error : function(){
+
+            }
+        });
+
+        function draw(date, count, number, type){
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '统计结果'
+                },
+                 label:{ 
+					normal:{ 
+						show: true, 
+						//position: 'inside'//字体直方图中心显示
+                        position: 'top'//字体直方图顶部显示
+					} 
+				}, 
+                tooltip: {//鼠标悬浮直方图显示
+                	trigger: 'axis',
+					axisPointer: {
+					    type: 'shadow'
+					},
+					backgroundColor: 'rgba(245, 245, 245, 0.8)',
+					borderWidth: 1,
+					borderColor: '#aaa',
+					padding: 10,
+					textStyle: {
+					    color: '#000'
+					},
+					/* position: function (pos, params, el, elRect, size) {
+					    var obj = {top: 10};
+					    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+					    return obj;
+					}, */
+					extraCssText: 'width: 300px'
+                },
+                legend: {
+                   
+                },
+                xAxis: {
+                    data: date,
+ 					type: 'category',
+ 					axisTick: {
+		                alignWithLabel: true
+		            },
+                    axisLabel:{  
+                        //interval:0 , 
+                         interval: 'auto', 
+                        formatter:function(val){
+                            if(val.length == 7 || val.length==10){
+                                return val;
+                            }else if(val.substring(7,8) == "("){
+                                return val.substring(0,7);
+                            }else if(val.substring(10,11) == "("){
+                                return val.substring(0,10);
+                            }
+                          
+                        }
+                         
+                    }
+                    /*boundaryGap : false,  
+                    data: date, 
+                    show : true,  
+                    axisLabel:{  
+                        interval:0 ,  
+                        formatter:function(val){  
+                          return val.split("").join("\n");  
+                        }  
+                    }    */
+                },
+                yAxis: {type: 'value'},
+                 scrollbar: {
+	               enabled: true
+	            },
+                series: [{
+                    name: type,
+                    type: 'bar',
+                    data: count,
+                    label:{
+                    	normal:{
+                    		show:true,
+                            textStyle: {//直方图字体颜色
+                                 color: '#000000',
+                                 /*fontFamily: 'verdana',
+                                 fontSize: 20,
+                                 fontStyle: 'normal',
+                                 fontWeight: 'bold'*/
+                             }
+                    	}
+                    }
+                }/* ,{
+                    name: '交易笔数',
+                    type: 'bar',
+                    data: number,
+                    label:{
+                    	normal:{
+                    		show:false
+                    	}
+                    }
+                } */]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="true">
+
+	<context:property-placeholder
+		ignore-unresolvable="true" location="file:${catalina.home}/myconf/config.properties" />
+
+	<!-- <context:property-placeholder ignore-unresolvable="true" location="file:D:/software/apache-tomcat-7.0.75/myconf/config.properties" 
+		/> -->
+
+
+	<!-- MyBatis begin -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.pay.mapper" />
+		<property name="mapperLocations" value="classpath:/mybatis/mappings/*.xml" />
+	</bean>
+
+	<!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.pay.mapper" />
+	</bean>
+
+	<!-- 普通配置datasource的方法 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="validationQuery" value="SELECT 1" />
+    	<property name="testOnBorrow" value="true"/>
+	</bean>
+
+	<!-- 类扫描器 -->
+	<context:component-scan base-package="com.pay.service" />
+	<context:component-scan base-package="com.pay.*.service" />
+	<context:component-scan base-package="com.pay.thridwy.haolong.utils" />
+
+
+	<!-- *******************事务***************** -->
+	<!-- 事务注解解析器 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 事务管bean -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<!-- *******************事务***************** -->
+
+	<!-- 微信滴接口service -->
+	<bean id="wxMpService" class="me.chanjar.weixin.mp.api.WxMpServiceImpl"></bean>
+
+	<!-- 微信滴接口service -->
+	<!--<bean id="springContextHolder" class="com.pay.common.utils.SpringContextHolder"></bean> -->
+	<!-- 缓存配置 -->
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:cache/ehcache-local.xml" />
+	</bean>
+
+</beans>

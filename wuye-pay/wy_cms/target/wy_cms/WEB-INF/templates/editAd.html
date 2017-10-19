@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>编辑广告内容</title>
+    <meta charset="utf-8">
+	<link href="../css/add.css" rel="stylesheet" type="text/css" />
+	
+	<link rel="stylesheet" href="../js/jquery/jquery-easyui-1.3/themes/gray/easyui.css" type="text/css"></link>
+	<link rel="stylesheet" href="../js/jquery/jquery-easyui-1.3/themes/icon.css" type="text/css"></link>
+	
+	<script type="text/javascript" src="../js/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery-easyui-1.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery-easyui-1.3/easyUI_extention.js"></script>
+	
+	
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/editAds.js"></script>
+	
+</head>
+
+<body>
+<div class="Content AddZone">
+   <div class="ConMain">
+   <div class="name">
+       <span class="item">id</span><input id="id" name="id" type="text" class="text01" readOnly="readOnly"/>
+    </div>
+    <div class="name">
+       <span class="item">说明</span><input id="descr" name="descr" type="text" class="text01"/>
+    </div>
+    <div class="name">
+       <span class="item">链接地址</span><input id="href" name="href" type="text" class="text01"/>
+    </div>
+    <div class="name">
+       <span class="item">状态</span><!-- <input id="statue" name="statue" type="text" class="text01"/> -->
+       <select id="statue" name="statue"  class="text01">
+         <option value="1">有效</option>
+         <option value="0">无效</option>
+       </select>
+    </div>
+    <div class="name">
+       <span class="item">WYID</span><input id="WYID" name="WYID" type="text" class="text01"/>
+    </div>
+    <div class="name">
+       <span class="item">创建时间</span><input id="createtime" name="createtime" type="text" class="text01" readOnly="readOnly"/>
+    </div>
+    <input id="state" type="hidden" />
+    <input id="giftID" type="hidden" />
+    <input id="smImg" type="hidden" />
+    <input id="lgImg" type="hidden" />
+    <div class="name">
+       <span class="item">广告图片</span><span class="image"><img id="image" src="" style="height:165;width:165;"/></span>
+       <div class="upload">
+     		<input type="hidden" required="true" id="iconLink0" name="iconLink0"/>
+     		<form class="form4UploadPic" action="uploadPic.htm"  method="post" enctype="multipart/form-data" imgKey="imgSrc" picKey="iconLink0">
+     			<input id="imgSrc" name="imgSrc" type="file"/>
+     			<input id="uploadPic1" type="submit"  class="button02"  value="上传"/>
+     		</form>
+       </div>
+    </div>
+   
+   
+ 
+<div class="ConBottom"><button id="btnSubmit" onclick="javascript:void(0);" class="btn">提交</button><button id="resetSubmit" onclick="parent.$('#win').window('close');" class="reset">取消</button></div><!--end ConBottom-->
+  </div><!--end ConMain-->
+</div><!--end content-->
+</body>
+</html>

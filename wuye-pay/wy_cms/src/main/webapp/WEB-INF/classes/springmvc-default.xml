@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<context:component-scan base-package="com.aibei.action" />
+
+	<!--启动Spring MVC的注解功能，完成请求和注解POJO的映射，添加拦截器，类级别的处理器映射 	-->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    	<!-- <property name="interceptors">
+    		<list>
+    			系统操作日志拦截器
+    			<bean class="com.laicaho.common.interceptor.SystemLogInterceptor"></bean>
+    		</list>
+    	</property> -->
+	</bean>
+
+	<!--添加拦截器 -->
+	
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射,配置一个基于注解的定制的WebBindingInitializer，
+		   解决日期转换问题，方法级别的处理器映射	-->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="cacheSeconds" value="0" />
+  		 <property name="webBindingInitializer">
+	        <bean class="com.aibei.common.DateInitializer" />
+	    </property>
+	    
+	    <!-- 配置一下对json数据的转换 -->
+	    <property name="messageConverters">
+	    	<list>
+	    		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	    		    <property name = "supportedMediaTypes">
+                       <list>
+                          <value>text/html;charset=UTF-8</value>   
+                       </list>   
+                    </property>   
+	    		</bean>
+	    		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>   
+                <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">      
+                    <property name="supportedMediaTypes">      
+                        <list>      
+                            <value>application/json;charset=UTF-8</value>      
+                       </list>      
+                    </property>    
+                </bean> 
+	    	</list>
+	    </property>
+	</bean>
+				
+ 	<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">  
+		<property name="order" value="2" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="dateToolAttribute" value="dateTool" />
+		<property name="numberToolAttribute" value="numberTool" />
+	</bean>
+
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="WEB-INF/templates" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+	
+    
+	<bean id="exceptionResolver" class="com.aibei.common.ExceptionHandler">
+		<property name="order" value="1" />
+		<property name="defaultErrorView" value="error.html"/>
+		<property name="defaultStatusCode" value="500"/>
+	</bean>	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages"/>
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
+	
+	<!-- 文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="114572800" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+</beans>

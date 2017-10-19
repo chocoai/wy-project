@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>好邻邦云社区-物业缴费</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<link rel="stylesheet" type="text/css" href="css/ref/layout2015.css" charset="gbk" />
+		<link rel="stylesheet" type="text/css" href="css/ref/home_2015_5_26.css" charset="gbk" />
+
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css">
+
+		<script src="js/jquery/jquery-1.8.3.min.js"></script>
+		<script src="js/jquery/jquery.mobile-1.3.2.min.js"></script>
+		<script src="http://web.iapppay.com/h5/v1.0.1/js/aibei_v1.1.0.js"></script>
+		<script src="https://web.iapppay.com/h5/v1.0.1/js/aibei_v1.1.0.js"></script>
+		<script src="http://web.iapppay.com/pub/js/jquery-1.11.3.js"></script>
+
+		<script src="js/jquery/slide_do.js"></script>
+		<script src="js/common.js"></script>
+		<link href="css/ref/slide_css.css" type="text/css" rel="stylesheet"></link>
+ 	<script type="text/javascript">
+ 	
+ 		var flag;
+ 		var source;
+ 		var Sumflag;
+ 		function GetQueryString(name)
+ 		{
+ 	    	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+ 	     	var r = window.location.search.substr(1).match(reg);
+ 	     	if(r!=null)return  decodeURIComponent(r[2]); return null;
+ 		}
+
+ 		/*function init(){
+	 		var code=GetQueryString("code");
+			$.ajax({
+				url:"/wy-server/WX/getOpenId.htm"
+			})
+ 		}*/
+ 		
+		function getContractA(){
+			if(flag==false){
+				alert("初始化失败");
+				return null;
+			}
+			var cliName = document.getElementById("cliName").value;
+			var mobile = document.getElementById("mobile").value;
+			if(cliName==""||mobile==""){
+				alert("请输入用户信息")
+				return 
+			}
+			var urlWYID = GetQueryString("WYID");
+			var Sumflag = GetQueryString("Sumflag");
+			if(Sumflag == "" || Sumflag == null){
+				Sumflag = 0;
+			}
+			sessionStorage.setItem("Sumflag",Sumflag);
+
+			var param = {
+				"cliName":cliName,
+				"mobile":mobile,
+				"WYID":urlWYID,
+				"source":source
+			};
+			$.ajax({
+				url : "/wy-server/contract/getContract.htm",
+				type : "post",
+				data : param,
+				async : false,
+				dataType : "json",
+				success:function(data){
+					var result = eval("("+data+")");
+					if(data != ""){
+						sessionStorage.setItem("contractInfo",data);
+						var contractList = result.contractList;
+						if(contractList.length>1){
+							window.location.replace("contract.html?number="+Math.random()) ;
+						}else if(contractList.length == 1){
+							var param = {
+									"feetype":GetQueryString("feetype"),
+									"WYID":result.contractList[0].WYID,
+									"HTID":result.contractList[0].HTID,
+									"JFYF":result.contractList[0].JFYF,
+									"SOURCE":result.source
+							}
+							var SIGN = getSIGN(param);
+							if(SIGN!=undefined){
+								param.SIGN=SIGN;
+								var fromtype = getQueryString("fromtype");
+								var from = getQueryString("from");
+								if(fromtype!=null && fromtype!=''){
+									from = fromtype;
+								}else if(from == "singlemessage"){
+									from = 2;
+								}
+								var feetype = getQueryString("feetype");
+								selectMode(from,param,feetype);
+							}else{
+								alert("加密失败");
+							}
+						}
+					}
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					if(jqXHR.status==200){
+						alert("请输入正确信息");
+					}else if(jqXHR.status=500){
+						alert("接口服务器异常")
+					}
+					
+				}
+			});
+		}
+		function init(){
+			var WYID = GetQueryString("WYID");
+			var feetype = GetQueryString("feetype");
+			if(WYID==null){
+				WYID=""
+			}
+			if(feetype==null){
+				feetype="";
+			}
+			source = GetQueryString("source");
+			var fromtype = getQueryString("fromtype");
+			var from = getQueryString("from");
+			if(fromtype!=null && fromtype!=''){
+				from = fromtype;
+			}else if(from == "singlemessage"){
+				from = 2;
+			}
+			var param = {
+					"source":source,
+					"from":from,
+					"feetype":feetype,
+					"WYID":WYID
+			};
+			
+			//填充默认值
+	 		var customer = decodeURI(GetQueryString("customer"));
+	 		var phone = GetQueryString("phone");
+	 		if(customer!="" && customer!="null"){
+	 			document.getElementById("cliName").value = customer;
+	 		}
+	 		if(phone!=""){
+	 			document.getElementById("mobile").value = phone;
+	 		}
+
+			$.ajax({
+				url : "/wy-server/contract/checkParam.htm",
+				type : "post",
+				data : param,
+				async : false,
+				dataType : "json",
+				success:function(data){
+					var result = eval('('+data+')');
+					var valid=result.valid;
+					if(valid){
+						flag=true
+						if(result.feetype==""){
+							result.feetype=0;
+						}
+						sessionStorage.setItem("param",JSON.stringify(result));
+					}else{
+						flag=false;
+						alert("初始化失败！");
+					}
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					alert("初始化失败！")
+				}
+			});
+
+			$.ajax({
+				url : "/wy-server/contract/getwyname.htm",
+				type : "post",
+				data : param,
+				async : false,
+				dataType : "json",
+				success:function(data){
+					if(data != "false"){
+						$(".wyname").html(data);
+						$(".wyname").css("display", "block");
+						$(".division").css("display", "none");
+					}
+				},
+			});
+		}
+	</script>
+	<style type="text/css">
+		.info{
+			height: 50px;
+			line-height: 50px;
+		}
+		.info-left{
+			width: 15%;
+			float: left;
+		}
+		.info-right{
+			width: 80%;
+			float: left;
+		}
+		.wyname{
+			border-bottom: 1px solid #CCC;
+		    border-top: 1px solid #ccc;
+		    margin: 0 0 10px 0;
+		    padding: 10px 0;
+		    text-align: center;
+		}
+		.botton-tip{
+			text-align: center;
+		    width: 100%;
+		    bottom: 0;
+		    position: absolute;
+		    color: #fff;
+		    background-color: rgba(0,0,0,0.75);
+		    font-size: 12px;
+		    height: 30px;
+		    line-height: 30px;
+		    text-shadow: none;
+		}
+	</style>
+	</head>
+
+	<body onload="init()">
+		<article>
+			<header>
+				<div style="width: 100%;height: 50px;background-color: darkturquoise;color: white;">
+						<p style="padding:20px;color:black;font-size: 1.3em;text-align: center;line-height:10px">客户费用查询系统</p>
+				</div>
+				</br>
+				<article>
+					<p style="color: #5d5757">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：手机号为数字，要准确输入，如您的手机号不能查询到费用数据，有两种可能，一种是不欠费，一种是号码有误或者未做登记，请致电物业服务中心进行处理。
+					</p>
+				</article>
+				</br>
+				<div class="wyname" style="display: none;background-color: #ededed">
+				</div>
+				<div class="division" style="border-top:2px solid #ededed">
+				</div>
+			</header>
+			<br />
+			<section>
+				<div class="info">
+					<div class="info-left">
+						<label for="username">&nbsp;&nbsp;&nbsp;姓名</label>
+					</div>
+					<div class="info-right">
+						<input type="text" id="cliName" placeholder="请输入姓名" autofocus required="required" />
+					</div>
+				</div>
+				<div class="info">
+					<div class="info-left">
+						<label for="mobileNumber">&nbsp;&nbsp;&nbsp;手机</label>
+					</div>
+					<div class="info-right">
+						<input type="text" id="mobile" placeholder="请输入手机号码" />
+					</div>
+				</div>
+			</section>
+			<div align="center">
+				<input id="btn" type="button" value="查询" onclick="getContractA()" data-inline="true"/>
+				<!-- <button data-role="none" type="button" onclick="getContractA()" style="width: 30%;height: 30px;margin-top: 15px;">查询</button> -->
+			</div>
+		</article>
+
+		<div class="botton-tip">深圳市好邻邦科技有限公司   0755-26503033 </div>
+		<script type="text/javascript">
+			$(".ui-btn").css("width", "30%");
+		</script>
+	</body>
+</html>

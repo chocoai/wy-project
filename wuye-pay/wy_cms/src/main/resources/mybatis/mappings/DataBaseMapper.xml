@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aibei.mapper.DataBaseMapper">
+
+	
+	<insert id="saveAccount" parameterType="com.aibei.bean.Account">
+		insert into wy_aibei_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="appid != null">
+				appid,
+			</if>
+			<if test="appuserid != null">
+				appuserid,
+			</if>
+			<if test="wyid != null">
+				wyid,
+			</if>
+			<if test="property != null">
+				property,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="appv_key != null">
+				appv_key,
+			</if>
+			<if test="platp_key != null">
+				platp_key,
+			</if> 
+			<if test="appSecret != null">
+				appSecret,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="platsystem != null">
+				platsystem,
+			</if>
+			<if test="offline != null">
+				offline,
+			</if>
+			<if test="wxid != null">
+				wxid,
+			</if>
+			<if test="ltid != null">
+				ltid,
+			</if>
+			<if test="sumflag != null">
+				sumflag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="appuserid != null">
+				#{appuserid,jdbcType=VARCHAR},
+			</if>
+			<if test="wyid != null">
+				#{wyid,jdbcType=VARCHAR},
+			</if>
+			<if test="property != null">
+				#{property,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				#{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="appv_key != null">
+				#{appv_key,jdbcType=VARCHAR},
+			</if>
+			<if test="platp_key != null">
+				#{platp_key,jdbcType=VARCHAR},
+			</if> 
+			<if test="appSecret != null">
+				#{appSecret,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="platsystem != null">
+				#{platsystem,jdbcType=VARCHAR},
+			</if>
+			<if test="offline != null">
+				#{offline,jdbcType=BOOLEAN},
+			</if>
+			<if test="wxid != null">
+				#{wxid,jdbcType=VARCHAR},
+			</if>
+			<if test="ltid != null">
+				#{ltid,jdbcType=VARCHAR},
+			</if>
+			<if test="sumflag != null">
+				#{sumflag,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getAccount" resultType="com.aibei.bean.Account"
+		parameterType="com.aibei.bean.Account">
+		select
+		id,appid,appuserid,wyid,property,createtime,updatetime,creater,editor,status,appv_key,platp_key,source,platsystem,offline,appSecret,wxid,ltid,sumflag
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR} and
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR} and
+			</if>
+			<if test="property != null">
+				property like '%${property}%' and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} and
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} and
+			</if>
+			<if test="appv_key != null">
+				appv_key = #{appv_key,jdbcType=VARCHAR} and
+			</if>
+			<if test="platp_key != null">
+				platp_key = #{platp_key,jdbcType=VARCHAR} and
+			</if>
+			<if test="appSecret != null">
+				appSecret = #{appSecret,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<if test="wxid != null">
+				wxid = #{wxid,jdbcType=VARCHAR} and
+			</if>
+			<if test="ltid != null">
+				ltid = #{ltid,jdbcType=VARCHAR} and
+			</if>
+			<if test="sumflag != null">
+				sumflag = #{sumflag,jdbcType=INTEGER} and
+			</if>
+		</trim>
+		 order by createtime desc limit #{beginIndex},#{rows}
+	</select>
+
+	<select id="getAccountById" resultType="com.aibei.bean.Account">
+		select
+		*
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id} and
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getAccountCount" resultType="Long" parameterType="com.aibei.bean.Account">
+		select
+		count(0)
+		from
+		wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR} and
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR} and
+			</if>
+			<if test="property != null">
+				property like '%${property}%' and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} and
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} and
+			</if>
+			<if test="appv_key != null">
+				appv_key = #{appv_key,jdbcType=VARCHAR} and
+			</if>
+			<if test="platp_key != null">
+				platp_key = #{platp_key,jdbcType=VARCHAR} and
+			</if> 
+			<if test="appSecret != null">
+				appSecret = #{appSecret,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<if test="wxid != null">
+				wxid = #{wxid,jdbcType=VARCHAR} and
+			</if>
+			<if test="ltid != null">
+				ltid = #{ltid,jdbcType=VARCHAR} and
+			</if>
+			<if test="sumflag != null">
+				sumflag = #{sumflag,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</select>
+
+	<delete id="deleteAccount" parameterType="com.aibei.bean.Account">
+		delete from wy_aibei_account
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</delete>
+
+	<update id="updateAccount" parameterType="com.aibei.bean.Account">
+		update wy_aibei_account
+		<set>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR},
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR},
+			</if>
+			<if test="property != null">
+				property = #{property,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="appv_key != null">
+				appv_key = #{appv_key,jdbcType=VARCHAR},
+			</if>
+			<if test="platp_key != null">
+				platp_key = #{platp_key,jdbcType=VARCHAR},
+			</if> 
+			<if test="appSecret != null">
+				appSecret = #{appSecret,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR},
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN},
+			</if>
+			<if test="wxid != null">
+				wxid = #{wxid,jdbcType=VARCHAR},
+			</if>
+			<if test="ltid != null">
+				ltid = #{ltid,jdbcType=VARCHAR},
+			</if>
+			<if test="sumflag != null">
+				sumflag = #{sumflag,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+
+
+	<insert id="saveAd" parameterType="com.aibei.bean.Ad">
+		insert into wy_aibei_ad
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="descr != null">
+				descr,
+			</if>
+			<if test="imgSrc != null">
+				imgSrc,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="wyid != null">
+				wyid,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="descr != null">
+				#{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="imgSrc != null">
+				#{imgSrc,jdbcType=VARCHAR},
+			</if>
+			<if test="href != null">
+				#{href,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="wyid != null">
+				#{wyid,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				#{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+	<select id="getAd" resultType="com.aibei.bean.Ad" parameterType="com.aibei.bean.Ad">
+		select
+		id,descr,imgSrc,href,updatetime,createtime,status,wyid,creater,editor,source
+		from
+		wy_aibei_ad
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="descr != null">
+				descr = #{descr,jdbcType=VARCHAR} and
+			</if>
+			<if test="imgSrc != null">
+				imgSrc = #{imgSrc,jdbcType=VARCHAR} and
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR} and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} AND
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR} AND
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} AND
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} AND
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} AND
+			</if>
+		</trim>
+	</select>
+
+
+
+	<select id="getAdCount" resultType="Long" parameterType="com.aibei.bean.Ad">
+		select
+		count(0)
+		from
+		wy_aibei_ad
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="descr != null">
+				descr = #{descr,jdbcType=VARCHAR} and
+			</if>
+			<if test="imgSrc != null">
+				imgSrc = #{imgSrc,jdbcType=VARCHAR} and
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR} and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} AND
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR} AND
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} AND
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} AND
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} AND
+			</if>
+		</trim>
+	</select>
+
+
+	<delete id="deleteAd" parameterType="com.aibei.bean.Ad">
+		delete from wy_aibei_ad
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</delete>
+
+
+
+	<update id="updateAd" parameterType="com.aibei.bean.Ad">
+		update wy_aibei_ad
+		<set>
+			<if test="descr != null">
+				descr = #{descr,jdbcType=INTEGER},
+			</if>
+			<if test="imgSrc != null">
+				imgSrc = #{imgSrc,jdbcType=SMALLINT},
+			</if>
+			<if test="href != null">
+				href =#{href,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="wyid != null">
+				wyid = #{wyid,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="deleteOrder" parameterType="com.aibei.bean.Order">
+		delete from wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</update>
+	
+	<delete id="quicklyRemove" parameterType="java.lang.String" >
+		delete from wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="and">
+			<if test="time!=null">
+				createtime <![CDATA[ <= ]]> #{time,jdbcType=VARCHAR} and
+			</if>
+			result != 0
+		</trim>
+	</delete>
+	<!--
+	<update id="updateOrder" parameterType="com.aibei.bean.Order">
+		update wy_aibei_order
+		<set>
+			<if test="id != null">
+				id = #{id,jdbcType=VARCHAR},
+			</if>	
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR},
+			</if>
+			<if test="cpprivate != null">
+				cpprivate = #{cpprivate,jdbcType=VARCHAR},
+			</if>
+			<if test="HTID != null">
+				HTID = #{HTID,jdbcType=VARCHAR},
+			</if>
+			<if test="JFYF != null">
+				JFYF = #{JFYF,jdbcType=VARCHAR},
+			</if>
+			<if test="BZIDList != null">
+				BZIDList = #{BZIDList,jdbcType=VARCHAR},
+			</if>
+			<if test="feiList != null">
+				feiList = #{feiList,jdbcType=VARCHAR},
+			</if>
+			<if test="transid != null">
+				transid = #{transid,jdbcType=VARCHAR},
+			</if>
+			<if test='transtime != null '>
+				transtime = #{transtime,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="SKID != null">
+				SKID = #{SKID,jdbcType=VARCHAR},
+			</if>	
+			<if test="paystatus != null">
+				paystatus = #{paystatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="feetype != null">
+				feetype = #{feetype,jdbcType=VARCHAR},
+			</if>
+			<if test="currency != null">
+				currency = #{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="cporderid != null">
+				cporderid = #{cporderid,jdbcType=VARCHAR},
+			</if>
+			<if test="transtype != null">
+				transtype = #{transtype,jdbcType=VARCHAR},
+			</if>		
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where cporderid = #{cporderid,jdbcType=VARCHAR}
+	</update> -->
+<update id="updateOrder" parameterType="com.aibei.bean.Order">
+		update wy_aibei_order
+		<set>
+			<if test="price != null">
+				price = #{price,jdbcType=FLOAT},
+			</if>
+			<if test='transtime != null '>
+				transtime = #{transtime,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="SKID != null">
+				SKID = #{SKID,jdbcType=VARCHAR},
+			</if>	
+			<if test="JFYF != null">
+				JFYF = #{JFYF,jdbcType=VARCHAR},
+			</if>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR},
+			</if>
+			<if test="feetype != null">
+				feetype = #{feetype,jdbcType=VARCHAR},
+			</if>		
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR},
+			</if>
+			<if test="property != null">
+				property = #{property,jdbcType=VARCHAR},
+			</if>
+			<if test="building != null">
+				building = #{building,jdbcType=VARCHAR},
+			</if>
+			<if test="room != null">
+				room = #{room,jdbcType=VARCHAR},
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR},
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN},
+			</if>
+			<if test="customername != null">
+				customername = #{customername,jdbcType=VARCHAR},
+			</if>
+			<if test="from != null and from != ''">
+				`from` = #{from,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where cporderid = #{cporderid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getOrder" resultType="com.aibei.bean.Order"
+		parameterType="com.aibei.bean.Order">
+		select
+		id,property,building,room,appid,waresid,appuserid,price,result,cpprivate,orderstatus,transid,transtime,HTID,JFYF,BZIDList,feiList,SKID,paystatus,createtime,updatetime,cporderid,paytype,feetype,currency,transtype,source,WYID,platsystem,offline,customername,`from`
+		from
+		wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR} and
+			</if>
+			<if test="transid != null">
+				transid = #{transid,jdbcType=VARCHAR} and
+			</if>
+			<if test="HTID != null">
+				HTID = #{HTID,jdbcType=VARCHAR} and
+			</if>
+			<if test="JFYF != null">
+				JFYF = #{JFYF,jdbcType=VARCHAR} and
+			</if>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR} and
+			</if>
+			<if test="property != null">
+				property like '%${property}%' and
+			</if>
+
+			<choose>
+				<when test="chargestatus != null">
+					<choose>
+						<when test="chargestatus == 0 ">
+							SKID not like '%ERROR%' and SKID != '' and
+						</when>
+						<when test="chargestatus == 1 ">
+							(SKID like '%ERROR%' or SKID = '' and orderstatus = '0') and
+						</when>
+					</choose>
+				</when>
+				<otherwise>
+					<if test="SKID != null and SKID !='' ">
+						SKID = #{SKID,jdbcType=VARCHAR} and
+					</if>
+				</otherwise>
+			</choose>
+			<!-- <if test="SKID != null"> SKID = #{SKID,jdbcType=VARCHAR} and </if> -->
+			<if test="cporderid != null">
+				<!-- cporderid = #{cporderid,jdbcType=VARCHAR} and -->
+				cporderid like '%${cporderid}%'  and
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR} and
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR} and
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR} and
+			</if>
+			<if test="transtype != null">
+				transtype = #{transtype,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="begintime != null ">
+				createtime &gt; #{begintime,jdbcType=VARCHAR} and
+			</if>
+			<if test="endtime != null ">
+				createtime &lt; #{endtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<if test="customername != null">
+				customername = #{customername,jdbcType=VARCHAR} and
+			</if>
+			<if test="from != null and from != ''">
+				`from` = #{from,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		order by createtime desc limit #{beginIndex},#{rows} 
+	</select>
+
+
+	<select id="getOrderNoPage" resultType="com.aibei.bean.Order"
+		parameterType="com.aibei.bean.Order">
+		select
+		id,property,building,room,appid,waresid,appuserid,price,result,cpprivate,orderstatus,transid,transtime,HTID,JFYF,BZIDList,feiList,SKID,paystatus,createtime,updatetime,cporderid,paytype,feetype,currency,transtype,source,WYID,platsystem,offline,customername,`from`
+		from
+		wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR} and
+			</if>
+			<if test="transid != null">
+				transid = #{transid,jdbcType=VARCHAR} and
+			</if>
+			<if test="HTID != null">
+				HTID = #{HTID,jdbcType=VARCHAR} and
+			</if>
+			<if test="JFYF != null">
+				JFYF = #{JFYF,jdbcType=VARCHAR} and
+			</if>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR} and
+			</if>
+
+			<choose>
+				<when test="chargestatus != null">
+					<choose>
+						<when test="chargestatus == 0 ">
+							SKID not like '%ERROR%' and SKID != '' and
+						</when>
+						<when test="chargestatus == 1 ">
+							(SKID like '%ERROR%' or SKID = '' and orderstatus = '0') and
+						</when>
+					</choose>
+				</when>
+				<otherwise>
+					<if test="SKID != null and SKID !='' ">
+						SKID = #{SKID,jdbcType=VARCHAR} and
+					</if>
+				</otherwise>
+			</choose>
+			<!-- <if test="SKID != null"> SKID = #{SKID,jdbcType=VARCHAR} and </if> -->
+			<if test="cporderid != null">
+				<!-- cporderid = #{cporderid,jdbcType=VARCHAR} and -->
+				cporderid like '%${cporderid}%'  and
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR} and
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR} and
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR} and
+			</if>
+			<if test="transtype != null">
+				transtype = #{transtype,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="begintime != null ">
+				createtime &gt; #{begintime,jdbcType=VARCHAR} and
+			</if>
+			<if test="endtime != null ">
+				createtime &lt; #{endtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<if test="customername != null">
+				customername = #{customername,jdbcType=VARCHAR} and 
+			</if>
+			<if test="from != null and from != ''">
+				`from` = #{from,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		order by createtime desc 
+	</select>
+
+
+	<select id="getOrderCountPrice"  resultType="Float" parameterType="com.aibei.bean.Order">
+		select sum(price) from wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="source != null and source != ''">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<!-- <if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR} and
+			</if> -->
+			<if test="property != null and property != ''">
+				property like '%${property}%'  and
+			</if>
+			<if test="JFYF != null and JFYF != ''">
+				JFYF = #{JFYF,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null and platsystem != ''">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null and offline != ''">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<choose>
+				<when test="chargestatus != null">
+					<choose>
+						<when test="chargestatus == 0 ">
+							SKID not like '%ERROR%' and SKID != '' and
+						</when>
+						<when test="chargestatus == 1 ">
+							(SKID like '%ERROR%' or SKID = '' and orderstatus = '0') and
+						</when>
+					</choose>
+				</when>
+				<otherwise>
+					<if test="SKID != null and SKID !=''  ">
+						SKID = #{SKID,jdbcType=VARCHAR} and
+					</if>
+				</otherwise>
+			</choose>
+			<if test="orderstatus != null and orderstatus != ''">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR} and
+			</if>
+			<if test="paytype != null and paytype != ''">
+				paytype = #{paytype,jdbcType=VARCHAR} and
+			</if>
+			<if test="begintime != null and begintime != ''">
+				createtime &gt; #{begintime,jdbcType=VARCHAR} and
+			</if>
+			<if test="endtime != null and endtime != ''">
+				createtime &lt; #{endtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="from != null and from != ''">
+				`from` = #{from,jdbcType=VARCHAR}
+			</if>
+			<if test="cporderid != null and cporderid != ''">
+				cporderid like '%${cporderid}%'  and
+			</if>
+		</trim>	
+	</select>
+
+	<select id="getOrderCount" resultType="Long" parameterType="com.aibei.bean.Order">
+		select
+		count(0)
+		from
+		wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="appid != null">
+				appid = #{appid,jdbcType=VARCHAR} and
+			</if>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR} and
+			</if>
+			<if test="appuserid != null">
+				appuserid = #{appuserid,jdbcType=VARCHAR} and
+			</if>
+			<if test="transid != null">
+				transid = #{transid,jdbcType=VARCHAR} and
+			</if>
+			<if test="HTID != null">
+				HTID = #{HTID,jdbcType=VARCHAR} and
+			</if>
+			<if test="JFYF != null">
+				JFYF = #{JFYF,jdbcType=VARCHAR} and
+			</if>
+			<if test="WYID != null">
+				WYID = #{WYID,jdbcType=VARCHAR} and
+			</if>
+			<if test="property != null">
+				property like '%${property}%'  and
+			</if>
+			<choose>
+				<when test="chargestatus != null">
+					<choose>
+						<when test="chargestatus == 0 ">
+							SKID not like '%ERROR%' and SKID != '' and
+						</when>
+						<when test="chargestatus == 1 ">
+							(SKID like '%ERROR%' or SKID = '' and orderstatus = '0') and
+						</when>
+					</choose>
+				</when>
+				<!-- <otherwise>
+					<if test="SKID != null and SKID !=''  ">
+						SKID = #{SKID,jdbcType=VARCHAR} and
+					</if>
+				</otherwise> -->
+			</choose>
+			<if test="cporderid != null">
+				<!-- cporderid = #{cporderid,jdbcType=VARCHAR} and -->
+				cporderid like '%${cporderid}%'  and
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR} and
+			</if>
+			<if test="orderstatus != null">
+				orderstatus = #{orderstatus,jdbcType=VARCHAR} and
+			</if>
+			<if test="begintime != null ">
+				createtime &gt; #{begintime,jdbcType=VARCHAR} and
+			</if>
+			<if test="endtime != null ">
+				createtime &lt; #{endtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="paytype != null">
+				paytype = #{paytype,jdbcType=VARCHAR} and
+			</if>
+			<if test="transtype != null">
+				transtype = #{transtype,jdbcType=VARCHAR} and
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR} and
+			</if>
+			<if test="platsystem != null">
+				platsystem = #{platsystem,jdbcType=VARCHAR} and
+			</if>
+			<if test="offline != null">
+				offline = #{offline,jdbcType=BOOLEAN} and
+			</if>
+			<if test="customername != null">
+				customername = #{customername,jdbcType=VARCHAR} and 
+			</if>
+			<if test="from != null and from != ''">
+				`from` = #{from,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+
+	<insert id="saveUrlMap" parameterType="com.aibei.bean.UrlMap">
+		insert into wy_aibei_urlkey
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="urlkey != null">
+				urlkey,
+			</if>
+			<if test="urlname != null">
+				urlname,
+			</if>
+			<if test="urlstring != null">
+				urlstring,
+			</if>
+			<if test="soapactionstring != null">
+				soapactionstring,
+			</if>
+			<if test="secretkey != null">
+				secretkey,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="creater != null">
+				creater,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="urlkey != null">
+				#{urlkey,jdbcType=VARCHAR},
+			</if>
+			<if test="urlname != null">
+				#{urlname,jdbcType=VARCHAR},
+			</if>
+			<if test="urlstring != null">
+				#{urlstring,jdbcType=VARCHAR},
+			</if>
+			<if test="soapactionstring != null">
+				#{soapactionstring,jdbcType=VARCHAR},
+			</if>
+			<if test="secretkey != null">
+				#{secretkey,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				#{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				#{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+
+	<select id="getUrlMap" resultType="com.aibei.bean.UrlMap"
+		parameterType="com.aibei.bean.UrlMap">
+		select
+		id,secretkey,urlkey,urlname,urlstring,soapactionstring,secretkey,createtime,updatetime,creater,editor,status
+		from
+		wy_aibei_urlkey
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=INTEGER} and
+			</if>
+			<if test="urlkey != null">
+				urlkey = #{urlkey,jdbcType=INTEGER} and
+			</if>
+			<if test="urlstring != null">
+				urlstring = #{urlstring,jdbcType=VARCHAR} and
+			</if>
+			<if test="soapactionstring != null">
+				soapactionstring = #{soapactionstring,jdbcType=VARCHAR}
+				and
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=VARCHAR}
+				and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} and
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} and
+			</if>
+		</trim>
+		order by createtime desc limit #{beginIndex},#{rows} 
+	</select>
+	
+	<select id="getUrlMapCount" resultType="Long"
+		parameterType="com.aibei.bean.UrlMap">
+		select
+		count(0)
+		from
+		wy_aibei_urlkey
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=INTEGER} and
+			</if>
+			<if test="urlkey != null">
+				urlkey = #{urlkey,jdbcType=INTEGER} and
+			</if>
+			<if test="urlstring != null">
+				urlstring = #{urlstring,jdbcType=VARCHAR} and
+			</if>
+			<if test="soapactionstring != null">
+				soapactionstring = #{soapactionstring,jdbcType=VARCHAR}
+				and
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=VARCHAR}
+				and
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR} and
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR} and
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR} and
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR} and
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR} and
+			</if>
+		</trim>
+	</select>
+
+
+	<delete id="deleteUrlMap" parameterType="com.aibei.bean.UrlMap">
+		delete from wy_aibei_urlkey
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</delete>
+
+	<update id="updateUrlMap" parameterType="com.aibei.bean.UrlMap">
+		update wy_aibei_urlkey
+		<set>
+			<if test="id != null">
+				id = #{id,jdbcType=VARCHAR},
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=INTEGER},
+			</if>
+			<if test="urlkey != null">
+				urlkey = #{urlkey,jdbcType=INTEGER},
+			</if>
+			<if test="urlname != null">
+				urlname = #{urlname,jdbcType=INTEGER},
+			</if>
+			<if test="urlstring != null">
+				urlstring = #{urlstring,jdbcType=VARCHAR},
+			</if>
+			<if test="soapactionstring != null">
+				soapactionstring = #{soapactionstring,jdbcType=VARCHAR},
+			</if>
+			<if test="secretkey != null">
+				secretkey = #{secretkey,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="creater != null">
+				creater = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="editor != null">
+				editor = #{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+
+
+	<insert id="addUser" parameterType="com.aibei.bean.User">
+		insert into wy_aibei_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="statue != null">
+				statue,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="statue != null">
+				#{statue,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+	<select id="getUser" resultType="com.aibei.bean.User"
+		parameterType="com.aibei.bean.User">
+		select id,username,password,statue,createtime from wy_aibei_user
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR} and
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR} and
+			</if>
+		</trim>
+	</select>
+
+	<update id="updateUser" parameterType="com.aibei.bean.User">
+		update wy_aibei_user
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password =#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="statue != null">
+				statue =#{statue,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</update>
+
+
+
+
+	<delete id="deleteUser" parameterType="com.aibei.bean.User">
+		delete from wy_aibei_user
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER} and
+			</if>
+		</trim>
+	</delete>
+
+
+	<select id="getWares" resultType="com.aibei.bean.Wares">
+		select * from wy_aibei_wares
+	</select>
+
+	<select id="getWaresCount" resultType="Long" parameterType="com.aibei.bean.Wares">
+		select
+		count(0)
+		from
+		wy_aibei_wares
+	</select>
+	
+	<insert id="saveWares" parameterType="com.aibei.bean.Wares">
+		insert into wy_aibei_wares
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="waresid != null">
+				waresid,
+			</if>
+			<if test="waresname != null">
+				waresname,
+			</if>
+			<if test="notifyurl != null">
+				notifyurl,
+			</if>
+			<if test="requesturl != null">
+				requesturl,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER}
+			</if>
+			<if test="waresid != null">
+				#{waresid,jdbcType=VARCHAR},
+			</if>
+			<if test="waresname != null">
+				#{waresname,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyurl != null">
+				#{notifyurl,jdbcType=VARCHAR},
+			</if>
+			<if test="requesturl != null">
+				#{requesturl,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+	
+	<update id="updateWares" parameterType="com.aibei.bean.Wares">
+		update wy_aibei_wares
+		<set>
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR},
+			</if>
+			<if test="waresname != null">
+				waresname =#{waresname,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyurl != null">
+				notifyurl =#{notifyurl,jdbcType=VARCHAR},
+			</if>
+			<if test="requesturl != null">
+				requesturl=#{requesturl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="waresid != null">
+				waresid = #{waresid,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</update>
+	<delete id="deleteWares" parameterType="com.aibei.bean.Wares">
+		delete from wy_aibei_wares
+		where
+		id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<insert id="saveOperateLog" parameterType="com.aibei.bean.OperateLog">
+		insert into wy_operate_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="action != null">
+				action,
+			</if>
+			<if test="time != null">
+				time,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="action != null">
+				#{action},
+			</if>
+			<if test="time != null">
+				#{time},
+			</if>
+			<if test="memo != null">
+				#{memo},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="getMonthStatistics" resultType="com.aibei.bean.Statistics"
+		parameterType="com.aibei.bean.Statistics">
+		select left(wy_aibei_order.createtime,7) as date, sum(wy_aibei_order.price) as count, count(*) AS number 
+		from wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			wy_aibei_order.orderstatus = 0
+			<if test="platsystem != null">
+				and wy_aibei_order.platsystem in 
+				<foreach item="item" index="index" collection="platsystem" open="(" separator="," close=")">  
+				  #{item}  
+				 </foreach>
+			</if>
+			<if test="begintime!=null and begintime!=''">
+				and left(wy_aibei_order.createtime,7) &gt;= #{begintime}
+			</if>
+			<if test="endtime!=null and endtime!=''">
+				and left(wy_aibei_order.createtime,7) &lt;= #{endtime}
+			</if>
+		</trim>
+		group by left(wy_aibei_order.createtime,7)
+	</select>
+	
+	<select id="getDayStatistics" resultType="com.aibei.bean.Statistics"
+		parameterType="com.aibei.bean.Statistics">
+		select left(wy_aibei_order.createtime,10) as date, sum(wy_aibei_order.price) as count, count(*) AS number 
+		from wy_aibei_order
+		<trim prefix="WHERE" suffixOverrides="AND">
+			wy_aibei_order.orderstatus = 0
+			<if test="platsystem != null">
+				and wy_aibei_order.platsystem in 
+				<foreach item="item" index="index" collection="platsystem" open="(" separator="," close=")">  
+				  #{item}  
+				 </foreach>
+			</if>
+			<if test="begintime!=null and begintime!=''">
+				and left(wy_aibei_order.createtime,10) &gt;= #{begintime}
+			</if>
+			<if test="endtime!=null and endtime!=''">
+				and left(wy_aibei_order.createtime,10) &lt;= #{endtime}
+			</if>
+		</trim>
+		group by left(wy_aibei_order.createtime,10)
+	</select>
+</mapper>

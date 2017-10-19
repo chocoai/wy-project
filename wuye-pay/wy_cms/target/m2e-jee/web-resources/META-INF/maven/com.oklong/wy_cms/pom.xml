@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.oklong</groupId>
+    <artifactId>wuye-pay</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>wy_cms</artifactId> 
+  <packaging>war</packaging>    
+  <description>支付后台管理</description>
+  
+  <dependencies>
+  	<!-- 此处定义的依赖jar可以被a及依赖a的项目使用 -->
+	
+  </dependencies>
+</project>

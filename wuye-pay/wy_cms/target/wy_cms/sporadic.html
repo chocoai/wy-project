@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                零星收款二维码生成
+            </title>
+        </meta>
+        <script src="js/jquery/jquery-1.8.3.min.js" type="text/javascript">
+        </script>
+        <style type="text/css">
+            .division{
+                border-bottom: 1px soild #000;
+                height: 20px;
+                width: 800px;
+            }
+            .width1{
+                width: 60%;
+            }
+            .width2{
+                width: 80%;
+            }
+            .width3{
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width:800px">
+            <div style="padding:10px 60px 20px 60px;">
+                <table cellpadding="10" style="border-collapse:collapse; width: 600px;">
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <h2>
+                                零星收款二维码生成
+                            </h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            费用类型
+                        </td>
+                        <td>
+                            <input class="width1" id="feetype" name="x0" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            物业ID
+                        </td>
+                        <td>
+                            <input class="width1" id="wyid" name="x1" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            来源
+                        </td>
+                        <td>
+                            <input class="width1" id="source" name="x4" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            签名
+                        </td>
+                        <td>
+                            <input class="width2" id="sign" name="sign" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            入口
+                        </td>
+                        <td>
+                            <select name="from" id="from">
+                                <option value="0">
+                                    公众号
+                                </option>
+                                <option value="1">
+                                    触摸屏
+                                </option>
+                                <option value="2">
+                                    通知单
+                                </option>
+                                <option value="3">
+                                    短信
+                                </option>
+                                <option value="4">
+                                    客显屏
+                                </option>
+                                <option value="5">
+                                    铭牌
+                                </option>
+                                <option value="6">
+                                    App
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BZID
+                        </td>
+                        <td>
+                            <!-- <input class="width1" id="bzid" name="BZID" type="text"/> -->
+                            <select name="BZID" id="bzid">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #000; border-top: 1px solid #000;">
+                        <td>
+                            二维码链接
+                        </td>
+                        <td>
+                            <textarea class="width3" rows="5" id="link" name="link" type="text"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button onclick="create()">
+                                生成
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function GetQueryString(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null){
+                    return  unescape(r[2]);
+                }
+                return null;
+            }
+
+            function notBlank(param){
+                if(param==null || param=="" || param==undefined){
+                    return false;
+                }
+                return true;
+            }
+
+            function getSIGN(param){
+                var sign ;
+                
+                $.ajax({
+                    url : "/wy-server/htmlAction/getSIGN.htm",
+                    type : "post",
+                    data : param,
+                    async : false,
+                    dataType : "json",
+                    success:function(data){
+                        sign = data;
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        alert("加密失败");
+                    }
+                });
+                return sign;
+            }
+
+            function selectMode(param){
+                var url;
+                var url1 = "http://www.oklong.com:8080/wy-client/";
+                if(param.feetype==0){
+                    url = "index.html?"+ 
+                    "x0="+param.feetype+"&x1="+param.WYID+"&x2="+param.HTID+"&x4="+param.SOURCE+"&SIGN="+param.SIGN+"&fromtype="+param.from+"&bzid="+param.bzid;
+                }else if(param.feetype==1){
+                    url = "index1.html?"+ 
+                    "x0="+param.feetype+"&x1="+param.WYID+"&x2="+param.HTID+"&x4="+param.SOURCE+"&SIGN="+param.SIGN+"&fromtype="+param.from+"&bzid="+param.bzid;
+                }else if(param.feetype==2){
+                    url = "index2.html?"+ 
+                    "x0="+param.feetype+"&x1="+param.WYID+"&x2="+param.HTID+"&x4="+param.SOURCE+"&SIGN="+param.SIGN+"&fromtype="+param.from+"&bzid="+param.bzid;
+                }
+                $("#link").val(url1+url);
+                var QRCode = {};
+                QRCode.url = url;
+                $.ajax({
+                    url : "/wy-server/QRCode/getQRCode.htm",
+                    type : "post",
+                    data : QRCode,
+                    async : false,
+                    success : function (data){
+                        sessionStorage.setItem("QRCodeImg",data);
+                        //window.location.href="/wy-client/QRCode.html"
+                        window.open("/wy-client/QRCode.html");
+                    },
+                    error : function (){
+                        alert("无法生成二维码")
+                    }
+                });
+            }
+
+            function fillBzid(source){
+                jQuery.ajax({
+                    url : "sporadic/getLXXM.htm",
+                    data : {"source":source},
+                    type : "post",
+                    success : function(data){
+                        var list = data;
+                        var content, content1, val1, val2;
+                        for(var i =0;i<list.length;i++){ 
+                            content = $("#bzid").html();
+                            val1 = list[i].LXXMID;
+                            val2 = list[i].名称;
+                            content1 = "<option value='"+val1+"'>"+val2+"</option>";
+                            $("#bzid").html(content+content1);
+                        }
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            var source = GetQueryString("x4");
+            var wyid = GetQueryString("x1");
+            fillBzid(source);
+            $("#source").val(source);
+            $("#wyid").val(wyid);
+            $("#feetype").val("2");
+
+            function create(){
+                var x0 = $("#feetype").val();
+                var x1 = $("#wyid").val();
+                var x4 = $("#source").val();
+                var froms = $("#from").val();
+                var bzid = $("#bzid").val();
+
+                if(notBlank(x0) && notBlank(x1) && notBlank(x4) && notBlank(froms) && notBlank(bzid)){
+                    var param = {
+                        "feetype":x0,
+                        "WYID" : x1,
+                        "HTID" : "0",
+                        "SOURCE" : x4,
+                        "from" : froms,
+                        "bzid" : bzid
+                    }
+                    var SIGN = getSIGN(param);
+                    if (SIGN != undefined) {
+                        $("#sign").val(SIGN);
+                        param.SIGN = SIGN;
+                        selectMode(param);
+                    } else {
+                        alert("加密失败");
+                    }
+                }else{
+                    alert("输入参数不完整");
+                }
+
+
+
+                /*jQuery.ajax({
+                    url : "sporadic/createSign.htm",
+                    data : {"feetype":x0, "wyid":x1, "source":x4},
+                    type : "post",
+                    success : function(data){
+
+                    }
+                });*/
+
+                
+            }
+        </script>
+    </body>
+</html>
